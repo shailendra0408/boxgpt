@@ -1,0 +1,1 @@
+"""BOXGPT web demo package."""

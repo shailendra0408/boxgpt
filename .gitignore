@@ -1,0 +1,11 @@
+.venv/
+config.json
+.env
+.env.web
+data/
+test_input/
+__pycache__/
+*.py[cod]
+*.log
+ocr_test_response.json
+.DS_Store

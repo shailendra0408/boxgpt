@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in — BOXGPT</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/app.css" rel="stylesheet">
+</head>
+<body class="login-page">
+  <a class="login-back" href="/">← Back to BOXGPT</a>
+  <main class="login-wrap">
+    <div class="login-card shadow-sm">
+      <a class="brand-lockup justify-content-center mb-4" href="/" aria-label="BOXGPT home"><span class="brand-mark" aria-hidden="true"><i></i></span><span>BoxGPT</span></a>
+      <div class="text-center mb-4"><div class="eyebrow">WELCOME BACK</div><h1 class="h3 fw-bold mt-2">Sign in to your workspace</h1><p class="text-secondary mb-0">Ask questions across your company documents.</p></div>
+      <form id="login-form" novalidate>
+        <label for="username" class="form-label fw-semibold">Username</label>
+        <input class="form-control form-control-lg mb-3" id="username" name="username" autocomplete="username" required>
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input class="form-control form-control-lg" id="password" name="password" type="password" autocomplete="current-password" required>
+        <div id="login-error" class="alert alert-danger py-2 mt-3 d-none" role="alert"></div>
+        <button class="btn btn-primary btn-lg w-100 rounded-3 mt-4" type="submit" id="login-button">Sign in <span aria-hidden="true">→</span></button>
+      </form>
+      <div class="login-footnote mt-4">Demo access is provided by your BOXGPT administrator.</div>
+    </div>
+  </main>
+  <script src="/static/login.js"></script>
+</body>
+</html>
