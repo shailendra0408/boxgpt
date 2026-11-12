@@ -82,10 +82,16 @@
             <div class="analytics-card"><span class="analytics-icon green">✦</span><small>Questions today</small><strong id="analytics-today">—</strong><span id="analytics-total">— total questions</span></div>
             <div class="analytics-card"><span class="analytics-icon amber">◷</span><small>Average response time</small><strong id="analytics-latency">—</strong><span>Retrieval + answer generation</span></div>
             <div class="analytics-card"><span class="analytics-icon green">✓</span><small>Marked looks right</small><strong id="analytics-accurate">—</strong><span>User/reviewer feedback</span></div>
-            <div class="analytics-card"><span class="analytics-icon amber">!</span><small>Needs review</small><strong id="analytics-review">—</strong><span>Check answer against sources</span></div>
+            <div class="analytics-card"><span class="analytics-icon amber">!</span><small>Needs review</small><strong id="analytics-review">—</strong><span>Flagged answers</span></div>
           </div>
-          <div class="analytics-panel mt-4"><div class="d-flex justify-content-between align-items-center"><div><h2>Questions over the last 7 days</h2><p>Hover over a bar to see the exact daily count.</p></div><span class="chart-key"><i></i> Questions</span></div><div id="weekly-chart" class="weekly-chart"><div class="text-secondary small">Loading activity…</div></div></div>
-          <div class="analytics-panel mt-4"><div class="mb-3"><h2>Recent questions and answer review</h2><p>Use “Needs review” to flag answers that should be checked against the cited documents.</p></div><div id="admin-history-list" class="admin-history-list"><div class="text-secondary small">Loading…</div></div></div>
+          <div class="analytics-panel mt-4"><div class="chart-heading"><div><h2>Questions over 30 days</h2><p id="chart-date-range">Loading date range…</p></div><div class="chart-navigation"><button type="button" class="btn btn-sm btn-outline-secondary" id="chart-previous">← Previous 30 days</button><button type="button" class="btn btn-sm btn-outline-secondary" id="chart-next">Next 30 days →</button></div></div><div class="chart-scroll" id="chart-scroll"><div id="weekly-chart" class="weekly-chart thirty-day-chart"><div class="text-secondary small">Loading activity…</div></div></div></div>
+          <div class="analytics-panel developer-analytics mt-4 d-none" id="developer-analytics">
+            <div class="developer-heading"><div><div class="eyebrow">DEVELOPER DIAGNOSTICS</div><h2>RAG performance and token usage</h2><p>Stage averages and the slowest recent questions. TTFT means time until the first answer token appears.</p></div><div class="developer-controls"><div class="analytics-filter"><label for="analytics-family-filter">Document family</label><select class="form-select form-select-sm" id="analytics-family-filter"><option value="">All families</option></select></div><span class="developer-badge">ADMIN ONLY</span></div></div>
+            <div class="performance-grid" id="performance-grid"></div>
+            <div class="token-summary" id="token-summary"></div>
+            <div class="table-responsive mt-4"><table class="table align-middle performance-table"><thead><tr><th>QUESTION</th><th>FAMILY</th><th>RETRIEVAL</th><th>TTFT</th><th>GENERATION</th><th>TOTAL</th><th>TOKENS</th></tr></thead><tbody id="slowest-questions"></tbody></table></div>
+          </div>
+          <div class="analytics-panel mt-4" id="question-review-panel"><div class="mb-3"><h2>Question history</h2><p>Newest questions appear first. Review selections are highlighted on each answer.</p></div><div id="admin-history-list" class="admin-history-list scrollable-admin-history"><div class="text-secondary small">Loading…</div></div><div class="question-pagination"><button type="button" class="btn btn-sm btn-outline-secondary" id="questions-previous">← Previous</button><span id="questions-page-label">Page 1</span><button type="button" class="btn btn-sm btn-outline-secondary" id="questions-next">Next →</button></div></div>
         </div>
       </section>
     </main>
@@ -97,6 +103,6 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/static/app.js?v=3"></script>
+  <script src="/static/app.js?v=7"></script>
 </body>
 </html>

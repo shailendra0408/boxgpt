@@ -25,6 +25,12 @@ CREATE TABLE IF NOT EXISTS web_question_events (
     question TEXT,
     answer TEXT,
     sources JSONB NOT NULL DEFAULT '[]'::jsonb,
+    document_families TEXT[] NOT NULL DEFAULT '{}'::text[],
+    performance JSONB NOT NULL DEFAULT '{}'::jsonb,
+    model_name TEXT,
+    input_tokens INTEGER,
+    output_tokens INTEGER,
+    total_tokens INTEGER,
     elapsed_ms INTEGER NOT NULL,
     status TEXT NOT NULL DEFAULT 'completed',
     feedback TEXT CHECK (feedback IN ('accurate', 'needs_review')),
@@ -38,13 +44,34 @@ ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS user_id BIGINT REFERENC
 ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS question TEXT;
 ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS answer TEXT;
 ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS sources JSONB NOT NULL DEFAULT '[]'::jsonb;
+ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS document_families TEXT[] NOT NULL DEFAULT '{}'::text[];
+ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS performance JSONB NOT NULL DEFAULT '{}'::jsonb;
+ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS model_name TEXT;
+ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS input_tokens INTEGER;
+ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS output_tokens INTEGER;
+ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS total_tokens INTEGER;
 ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'completed';
 ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS feedback TEXT;
 ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS reviewed_by BIGINT REFERENCES web_users(id) ON DELETE SET NULL;
 ALTER TABLE web_question_events ADD COLUMN IF NOT EXISTS reviewed_at TIMESTAMPTZ;
+
+-- Backfill family labels from retained source citations so filters also cover old questions.
+UPDATE web_question_events event
+SET document_families = families.values
+FROM (
+    SELECT id, ARRAY_AGG(DISTINCT source->>'document_type')
+        FILTER (WHERE COALESCE(source->>'document_type', '') <> '') AS values
+    FROM web_question_events, jsonb_array_elements(sources) AS source
+    WHERE cardinality(document_families) = 0
+    GROUP BY id
+) AS families
+WHERE event.id = families.id AND families.values IS NOT NULL;
 
 CREATE INDEX IF NOT EXISTS idx_web_question_events_user_created_at
 ON web_question_events (user_id, created_at DESC);
 
 CREATE INDEX IF NOT EXISTS idx_web_question_events_created_at
 ON web_question_events (created_at);
+
+CREATE INDEX IF NOT EXISTS idx_web_question_events_document_families
+ON web_question_events USING GIN (document_families);

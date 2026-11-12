@@ -4,6 +4,8 @@ let documentRecords = [];
 let currentObjectUrl = null;
 let analyticsLoaded = false;
 let activeQuestionId = null;
+let analyticsChartOffset = 0;
+let analyticsQuestionPage = 1;
 
 async function api(url, options = {}) {
   const response = await fetch(url, { credentials: 'same-origin', ...options });
@@ -226,7 +228,8 @@ $('#source-list').addEventListener('click', (event) => {
 
 async function loadAnalytics() {
   try {
-    const response = await api('/api/analytics');
+    const selectedFamily = $('#analytics-family-filter').value;
+    const response = await api(`/api/analytics?family=${encodeURIComponent(selectedFamily)}&days_offset=${analyticsChartOffset}&question_page=${analyticsQuestionPage}`);
     if (response.status === 403) {
       $('#analytics-nav').classList.add('d-none');
       selectView('ask');
@@ -241,20 +244,120 @@ async function loadAnalytics() {
     $('#analytics-latency').textContent = stats.average_response_ms ? `${(stats.average_response_ms / 1000).toFixed(1)}s` : '—';
     $('#analytics-accurate').textContent = Number(stats.feedback_accurate || 0).toLocaleString();
     $('#analytics-review').textContent = Number(stats.feedback_needs_review || 0).toLocaleString();
-    renderWeeklyChart(stats.daily_questions || []);
+    renderWeeklyChart(stats.daily_questions || [], stats.chart_start, stats.chart_end);
     renderAdminHistory(stats.recent_questions || []);
+    renderQuestionPagination(stats.question_pagination || {});
+    renderAnalyticsFamilyFilter(stats.document_families || [], stats.selected_family || '');
+    analyticsChartOffset = Number(stats.days_offset || 0);
+    $('#chart-next').disabled = analyticsChartOffset === 0;
+    $('#chart-date-range').textContent = `${formatChartDate(stats.chart_start)} – ${formatChartDate(stats.chart_end)}`;
+    renderDeveloperAnalytics(stats);
     analyticsLoaded = true;
   } catch (error) {
     $('#weekly-chart').innerHTML = `<div class="text-danger small">${escapeHtml(error.message)}</div>`;
   }
 }
 
-function renderWeeklyChart(days) {
+function renderQuestionPagination(pagination) {
+  analyticsQuestionPage = Number(pagination.page || 1);
+  const pages = Number(pagination.pages || 1);
+  const total = Number(pagination.total || 0);
+  $('#questions-page-label').textContent = `Page ${analyticsQuestionPage} of ${pages} · ${total.toLocaleString()} questions`;
+  $('#questions-previous').disabled = analyticsQuestionPage <= 1;
+  $('#questions-next').disabled = analyticsQuestionPage >= pages;
+}
+
+function renderAnalyticsFamilyFilter(families, selected) {
+  const filter = $('#analytics-family-filter');
+  filter.innerHTML = '<option value="">All families</option>' + families.map((family) =>
+    `<option value="${escapeAttribute(family)}">${escapeHtml(family)}</option>`).join('');
+  filter.value = selected;
+}
+
+function renderDeveloperAnalytics(stats) {
+  const panel = $('#developer-analytics');
+  panel.classList.toggle('d-none', !stats.developer_analytics_enabled);
+  if (!stats.developer_analytics_enabled) return;
+  const performance = stats.performance || {};
+  const stages = [
+    ['Query embedding', performance.embedding_ms],
+    ['Vector search', performance.vector_search_ms],
+    ['Lexical search', performance.lexical_search_ms],
+    ['RRF + MMR', performance.fusion_mmr_ms],
+    ['Neighbor expansion', performance.neighbor_expansion_ms],
+    ['Retrieval total', performance.retrieval_total_ms],
+    ['OpenAI first token', performance.openai_ttft_ms],
+    ['OpenAI generation', performance.openai_generation_ms],
+  ];
+  $('#performance-grid').innerHTML = stages.map(([label, value]) => `
+    <div class="performance-stat"><span>${escapeHtml(label)}</span><strong>${formatDuration(value)}</strong></div>`).join('');
+  $('#token-summary').innerHTML = `
+    <div><span>Total input tokens</span><strong>${formatNumber(performance.input_tokens)}</strong></div>
+    <div><span>Total output tokens</span><strong>${formatNumber(performance.output_tokens)}</strong></div>
+    <div><span>Total tokens</span><strong>${formatNumber(performance.total_tokens)}</strong></div>
+    <div><span>Average per answer</span><strong>${formatNumber(performance.average_tokens)}</strong></div>`;
+  const rows = stats.slowest_questions || [];
+  $('#slowest-questions').innerHTML = rows.length ? rows.map((item) => {
+    const timings = item.performance || {};
+    return `<tr>
+      <td><strong>${escapeHtml(item.question)}</strong><small>${escapeHtml(item.username)} · ${escapeHtml(formatDate(item.created_at))}</small></td>
+      <td>${escapeHtml((item.families || []).join(', ') || '—')}</td>
+      <td>${formatDuration(timings.retrieval_total_ms)}</td>
+      <td>${formatDuration(timings.openai_ttft_ms)}</td>
+      <td>${formatDuration(timings.openai_generation_ms)}</td>
+      <td><strong>${formatDuration(item.elapsed_ms)}</strong></td>
+      <td>${formatNumber(item.total_tokens)}</td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="7" class="text-secondary">New questions will appear here after instrumentation is enabled.</td></tr>';
+}
+
+function formatDuration(value) {
+  if (value === null || value === undefined) return '—';
+  const milliseconds = Number(value);
+  return milliseconds >= 1000 ? `${(milliseconds / 1000).toFixed(2)}s` : `${Math.round(milliseconds)}ms`;
+}
+
+function formatNumber(value) {
+  return value === null || value === undefined ? '—' : Number(value).toLocaleString();
+}
+
+$('#analytics-family-filter').addEventListener('change', () => {
+  analyticsLoaded = false;
+  loadAnalytics();
+});
+
+$('#chart-previous').addEventListener('click', () => {
+  analyticsChartOffset += 30;
+  analyticsLoaded = false;
+  loadAnalytics();
+});
+
+$('#chart-next').addEventListener('click', () => {
+  analyticsChartOffset = Math.max(0, analyticsChartOffset - 30);
+  analyticsLoaded = false;
+  loadAnalytics();
+});
+
+$('#questions-previous').addEventListener('click', () => {
+  if (analyticsQuestionPage <= 1) return;
+  analyticsQuestionPage -= 1;
+  analyticsLoaded = false;
+  loadAnalytics();
+});
+
+$('#questions-next').addEventListener('click', () => {
+  analyticsQuestionPage += 1;
+  analyticsLoaded = false;
+  loadAnalytics();
+});
+
+function renderWeeklyChart(days, chartStart, chartEnd) {
   const counts = new Map(days.map((item) => [item.date, item.count]));
-  const values = Array.from({ length: 7 }, (_, index) => {
-    const day = new Date(Date.now() - (6 - index) * 24 * 60 * 60 * 1000);
+  const end = chartEnd ? new Date(`${chartEnd}T12:00:00+05:30`) : new Date();
+  const values = Array.from({ length: 30 }, (_, index) => {
+    const day = new Date(end.getTime() - (29 - index) * 24 * 60 * 60 * 1000);
     const iso = dateKeyInIST(day);
-    return { date: iso, label: day.toLocaleDateString(undefined, { weekday: 'short', timeZone: 'Asia/Kolkata' }), count: counts.get(iso) || 0 };
+    return { date: iso, label: day.toLocaleDateString(undefined, { day: 'numeric', month: 'short', timeZone: 'Asia/Kolkata' }), count: counts.get(iso) || 0 };
   });
   const max = Math.max(1, ...values.map((item) => item.count));
   $('#weekly-chart').innerHTML = values.map((item) => `
@@ -262,6 +365,15 @@ function renderWeeklyChart(days) {
       <div class="chart-bar-wrap"><div class="chart-bar" style="height:${Math.max(item.count ? 8 : 2, (item.count / max) * 100)}%"></div></div>
       <span>${item.label}</span>
     </div>`).join('');
+  const scroller = $('#chart-scroll');
+  requestAnimationFrame(() => { scroller.scrollLeft = scroller.scrollWidth; });
+}
+
+function formatChartDate(value) {
+  if (!value) return '—';
+  return new Date(`${value}T12:00:00+05:30`).toLocaleDateString(undefined, {
+    day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata',
+  });
 }
 
 async function loadQuestionHistory() {
@@ -303,6 +415,7 @@ $('#recent-questions-list').addEventListener('click', (event) => {
 });
 
 function renderQuestionHistory(items) {
+  items = [...items].sort((left, right) => new Date(right.created_at) - new Date(left.created_at));
   const container = $('#question-history-list');
   $('#history-count-label').textContent = `${items.length} saved`;
   if (!items.length) {
@@ -335,6 +448,7 @@ function renderFeedbackControls(id, feedback) {
 }
 
 function renderAdminHistory(items) {
+  items = [...items].sort((left, right) => new Date(right.created_at) - new Date(left.created_at));
   const container = $('#admin-history-list');
   if (!items.length) {
     container.innerHTML = '<div class="empty-state">No saved questions yet.</div>';

@@ -53,6 +53,12 @@ Open `http://127.0.0.1:8000`. The account usernames above are examples; choose y
 
 Each question first gets embedded and searched; only after the relevant passages arrive can the OpenAI answer stream start. The browser renders answer text as OpenAI sends it. This lowers perceived wait time but does not make retrieval or generation itself instantaneous. The API records aggregate duration so later optimization can distinguish a slow search from a slow answer provider.
 
+## Hybrid retrieval tuning
+
+The web API combines BGE-M3 vector results and PostgreSQL lexical results with Reciprocal Rank Fusion, reserves the strongest lexical result, and uses Rajiv's MMR implementation to diversify the remaining source slots. The defaults in `.env.web.example` slightly boost lexical evidence while preserving semantic retrieval for fuzzy questions. `RAG_LEXICAL_RESERVED_SLOTS=1` prevents an exact name or document-number match from being discarded by the vector-only MMR score. Change one setting at a time and validate both exact and fuzzy questions before deployment.
+
+Lexical retrieval uses relaxed OR matching followed by query-term coverage reranking, so a typo or one missing word does not eliminate all lexical candidates. After hybrid selection, the API expands around the strongest results using document `chunk_index`, removes duplicate chunks, and applies `RAG_MAX_CONTEXT_CHUNKS` as a hard context-count cap. Neighbor expansion is deliberately limited to the top results because extra chunks increase OpenAI input tokens. `RAG_CONTEXT_TOKEN_BUDGET` then shares an approximate context budget across the selected excerpts; the default is 2,000 tokens.
+
 ## Question history and answer review
 
 Question events are stored in the `web_question_events` table, including question text, answer text, source references, signed-in account, and optional `accurate` / `needs_review` feedback. Existing aggregate-only rows are preserved but cannot be reconstructed into question history. Users can revisit their own recent questions; admins can review workspace questions in Analytics. The feedback is a human assessment, not an automatic correctness score.
