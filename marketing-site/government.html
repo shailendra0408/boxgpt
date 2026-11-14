@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Government AI assistant | Box GPT</title>
+<meta name="description" content="A private AI assistant for government departments, grounded in their documents and data and deployable inside their own network.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="/css/styles.css?v=2">
+<script src="/js/main.js?v=1" defer></script>
+<script src="/js/government.js?v=1" defer></script>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="/" aria-label="Box GPT home"><span class="mk"></span>Box GPT</a>
+  <div class="links">
+    <a class="hm" href="/">Home</a><a class="hm" href="/#how">How it works</a><a class="hm" href="/#privacy">Privacy</a><div class="dd"><button class="on" id="ddb" aria-expanded="false" aria-haspopup="true">Industries we serve</button><div class="menu" id="ddm"><a href="/#industries">All industries</a><a href="/banking">Banking</a><a href="/manufacturing">Manufacturing</a><a class="on" href="/government" aria-current="page">Government</a></div></div><a class="hm" href="/#about">About us</a>
+  </div>
+  <a class="btn ghost hm" href="/login">Sign in</a><a class="btn" href="/#contact">Talk to us</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
+<div class="mnav" id="mnav" hidden><a href="/">Home</a><a href="/#how">How it works</a><a href="/#privacy">Privacy</a><a href="/#industries">Industries we serve</a><a class="sub" href="/banking">Banking</a><a class="sub" href="/manufacturing">Manufacturing</a><a class="sub on" href="/government" aria-current="page">Government</a><a href="/#about">About us</a><a href="/login">Sign in</a><a href="/#contact">Contact</a></div></div></nav>
+
+<main id="main" class="pg">
+<div class="wrap phead"><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/#industries">Industries we serve</a><span>/</span><span>Government</span></nav><h1>A private GPT for every department.</h1><p class="lead">Bring circulars, scheme guidelines, government orders, manuals and databases into one assistant. Citizens and officers ask in plain language, receive cited answers and keep sensitive information inside the department’s network.</p>
+<div class="actions"><a class="btn" href="/#contact">Book a demonstration</a><a class="btn ghost" href="#g-knowledge">See how it works</a></div></div>
+
+<div class="wrap pad-b"><div class="demo gov-demo" aria-label="Government assistant examples">
+  <div class="dbar"><span class="live"></span>Running on a department server, offline<div class="chips" id="gov-chips"><button type="button" data-i="0" aria-pressed="true">Citizen</button><button type="button" data-i="1" aria-pressed="false">Officer</button><button type="button" data-i="2" aria-pressed="false">Department data</button></div></div>
+  <div class="dq"><small id="gov-who">A citizen asks</small><p id="gov-question" lang="hi">मैं निर्माण श्रमिक हूँ। मैं किन योजनाओं के लिए आवेदन कर सकता हूँ?</p></div>
+  <div class="dres gov-result"><small>Answer grounded in department records</small><div id="gov-answer" class="gov-answer" aria-live="polite"></div></div>
+</div><p class="cap">Illustrative examples. Production answers link back to the relevant circular, guideline or database record.</p></div>
+
+<section class="t-peach" id="g-knowledge"><div class="wrap"><div class="sec-head"><h2>Built on your department’s knowledge.</h2><p>Bring together information that currently sits across files, circulars, portals and databases.</p></div><div class="sec6">
+  <div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#app"/></svg></div><h3>Your documents</h3><p>Ask questions across guidelines, reports, orders and manuals, with the exact source and page attached.</p></div>
+  <div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#db"/></svg></div><h3>Your data</h3><p>Connect existing databases and request tables or summaries without waiting for a manually prepared report.</p></div>
+  <div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#chat"/></svg></div><h3>Your language</h3><p>Ask in English, Hindi or a regional language and receive an answer in the language used by the requester.</p></div>
+</div></div></section>
+
+<section class="t-violet" id="g-workflow"><div class="wrap"><div class="sec-head"><h2>From request to accountable action.</h2><p>Answers are only the first layer. Box GPT can support the work that follows while keeping officers in control.</p></div><div class="steps gov-steps">
+  <div class="step"><div class="top"><div class="tile"><svg class="i"><use href="/assets/icons.svg#app"/></svg></div></div><h3>Read</h3><p>Read applications, letters, complaints and emails received through approved channels.</p></div>
+  <div class="step"><div class="top"><div class="tile"><svg class="i"><use href="/assets/icons.svg#check"/></svg></div></div><h3>Check</h3><p>Check the request against department rules, scheme criteria and authorised records.</p></div>
+  <div class="step"><div class="top"><div class="tile"><svg class="i"><use href="/assets/icons.svg#flow"/></svg></div></div><h3>Route</h3><p>Classify the request and direct it to the appropriate office or responsible team.</p></div>
+  <div class="step"><div class="top"><div class="tile"><svg class="i"><use href="/assets/icons.svg#users"/></svg></div></div><h3>Approve</h3><p>Prepare the reply or action for an authorised officer to review and approve.</p></div>
+</div></div></section>
+
+<section class="t-teal" id="g-use-cases"><div class="wrap"><div class="sec-head"><h2>What departments can build.</h2><p>The same private platform adapts to different documents, data and public-service processes.</p></div><div class="sec6">
+  <div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#gov"/></svg></div><h3>A guide for citizens</h3><p>Explain schemes, check requirements against published rules and identify the documents required to apply.</p><q>Which schemes can a registered construction worker apply for?</q></div>
+  <div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#flow"/></svg></div><h3>One front door for requests</h3><p>Read, classify and route applications, grievances and letters to the correct office.</p><q>Show pending grievances older than 15 days by district.</q></div>
+  <div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#users"/></svg></div><h3>A colleague for officers</h3><p>Find current rules, circulars and prior guidance without manually searching through files.</p><q>What is the latest circular on subsidy eligibility?</q></div>
+</div></div></section>
+
+<section class="t-violet" id="g-security"><div class="wrap split"><div><div class="sec-head"><h2>Government data stays under government control.</h2><p>Deploy the model, database and application inside the department’s network, including air-gapped environments.</p></div><ul>
+  <li><svg class="i"><use href="/assets/icons.svg#check"/></svg>On-premise or in the government’s own cloud account</li>
+  <li><svg class="i"><use href="/assets/icons.svg#check"/></svg>Role-based access to documents and data</li>
+  <li><svg class="i"><use href="/assets/icons.svg#check"/></svg>Citations attached to document-grounded answers</li>
+  <li><svg class="i"><use href="/assets/icons.svg#check"/></svg>Audit history for questions, feedback and approved actions</li>
+</ul></div><div class="sec6 gov-security-cards">
+  <div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#server"/></svg></div><h3>On your servers</h3><p>Installed next to the documents and databases it reads.</p></div>
+  <div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#wifioff"/></svg></div><h3>Without internet</h3><p>Designed to run within a restricted or fully air-gapped network.</p></div>
+  <div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#lock"/></svg></div><h3>Access by role</h3><p>Each user receives only the information their role permits.</p></div>
+</div></div></section>
+
+<section class="t-peach slim"><div class="wrap seeb"><div><h3>Also see: Manufacturing</h3><p>A co-pilot that answers operators from machine manuals, SOPs and work orders.</p></div><a class="btn" href="/manufacturing">See the manufacturing solution</a></div></section>
+<section class="cta"><div class="wrap"><div><h2>Tell us about your department.</h2><p>Share one set of documents that is difficult to search or one process that still moves manually. We will show you a working version on your own data.</p><a class="btn" href="/#contact">Talk to us</a></div><div class="cta-visual" aria-hidden="true"><svg class="cv-cube" viewBox="0 0 320 320" fill="none"><circle cx="160" cy="160" r="150" stroke="rgba(255,255,255,.10)" stroke-width="1.5"/><circle cx="160" cy="160" r="112" stroke="rgba(255,255,255,.16)" stroke-width="1.5" stroke-dasharray="4 8"/><g class="cv-float"><polygon points="160,82 227.5,121 160,160 92.5,121" fill="rgba(125,240,221,.22)"/><polygon points="160,82 227.5,121 227.5,199 160,238 92.5,199 92.5,121" stroke="#7DF0DD" stroke-width="7" stroke-linejoin="round"/><path d="M92.5 121 160 160 227.5 121M160 160v78" stroke="#7DF0DD" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/></g></svg></div></div></section>
+</main>
+
+<footer><div class="wrap fgrid"><div><span class="fb"><span class="mk"></span>Box GPT</span><p>Private AI for your data and your workflows.</p></div>
+<div><h4>Company</h4><a href="/">Home</a><a href="/#how">How it works</a><a href="/#privacy">Privacy</a><a href="/login">Sign in</a><a href="/#about">About us</a><a href="/#contact">Contact</a></div>
+<div><h4>Industries</h4><a href="/#industries">All industries</a><a href="/banking">Banking</a><a href="/manufacturing">Manufacturing</a><a href="/government" aria-current="page">Government</a></div>
+<div><h4>Get in touch</h4><a href="mailto:hello@example.com">hello@example.com</a><a href="/#contact">Talk to us</a></div></div>
+<div class="wrap fbase"><span>Box GPT</span><span>Enterprise automation, AI agents and intelligent software</span></div></footer>
+</body>
+</html>

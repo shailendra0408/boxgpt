@@ -314,3 +314,13 @@ body{overflow-x:clip}
 .btn.btn-sm{padding:9px 18px;font-size:.9rem}
 /* ---- 404 ---- */
 .nf{min-height:52vh;display:flex;align-items:center}
+
+/* ---- government industry page ---- */
+.gov-demo .dq{min-height:118px}
+.gov-result{min-height:174px;padding-top:18px}
+.gov-answer p{font-size:1.03rem;max-width:72ch;margin-bottom:16px}
+.gov-source{display:inline-block;border-left:3px solid var(--blue);background:color-mix(in srgb,var(--blue) 9%,var(--panel));color:var(--blue);padding:6px 10px;border-radius:4px;font:500 .78rem var(--mono)}
+.gov-steps{grid-template-columns:repeat(4,1fr)}
+.gov-security-cards{grid-template-columns:1fr;margin-top:0}
+@media (max-width:900px){.gov-steps{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.gov-steps{grid-template-columns:1fr}.gov-result{min-height:200px}}
