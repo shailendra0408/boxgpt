@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response
-from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from openai import AsyncOpenAI
 from pydantic import BaseModel, Field
@@ -96,9 +96,9 @@ def admin_user(user: dict[str, Any] = Depends(current_user)) -> dict[str, Any]:
     return user
 
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/", response_class=RedirectResponse)
 def public_home():
-    return (FRONTEND_DIR / "index.html").read_text(encoding="utf-8")
+    return RedirectResponse(url="/login", status_code=302)
 
 
 @app.get("/login", response_class=HTMLResponse)
