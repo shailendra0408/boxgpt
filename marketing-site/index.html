@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Box GPT | Ask your data in plain English</title>
+<meta name="description" content="Box GPT is a private AI assistant that runs on your own servers. Ask your data in plain English, with nothing leaving your premises.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="/css/styles.css?v=1">
+<script src="/js/main.js?v=1" defer></script>
+<script src="/js/home.js?v=1" defer></script>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="/" aria-label="Box GPT home"><span class="mk"></span>Box GPT</a>
+  <div class="links">
+    <a class="hm on" href="/" aria-current="page">Home</a><a class="hm" href="/#how">How it works</a><a class="hm" href="/#privacy">Privacy</a><div class="dd"><button id="ddb" aria-expanded="false" aria-haspopup="true">Industries we serve</button><div class="menu" id="ddm"><a href="/#industries">All industries</a><a href="/banking">Banking</a><a href="/manufacturing">Manufacturing</a></div></div><a class="hm" href="/#about">About us</a>
+  </div>
+  <a class="btn ghost hm" href="/login">Sign in</a><a class="btn" href="/#contact">Talk to us</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
+<div class="mnav" id="mnav" hidden><a class="on" href="/" aria-current="page">Home</a><a href="/#how">How it works</a><a href="/#privacy">Privacy</a><a href="/#industries">Industries we serve</a><a class="sub" href="/banking">Banking</a><a class="sub" href="/manufacturing">Manufacturing</a><a href="/#about">About us</a><a href="/login">Sign in</a><a href="/#contact">Contact</a></div></div></nav>
+
+<main id="main">
+<div class="wrap hero"><div>
+<h1>Ask your data in plain English.</h1>
+<p class="lead">Box GPT is a private assistant that runs on your own servers. Type a question and get the answer from your database. No SQL, no forms, and nothing leaves your premises.</p>
+<div class="actions"><a class="btn" href="/login">Sign in</a><a class="btn ghost" href="/#industries">See industries we serve</a></div></div>
+<div class="demo" aria-label="Animated example of a question becoming a query and an answer">
+    <div class="dbar"><span class="live"></span>Running on a local server, offline
+      <div class="chips" id="chips"></div></div>
+    <div class="dq"><small>Someone on your team types</small><p id="q"></p></div>
+    <pre class="sql" id="sql"></pre>
+    <div class="dres"><small>Answer from your database</small><div class="tbl"><table><thead id="th"></thead><tbody id="tb"></tbody></table></div></div>
+  </div>
+</div>
+
+<section class="t-teal" id="privacy"><div class="wrap">
+<div class="sec-head"><h2>Your data stays on your premises.</h2><p>Box GPT is built for one company and runs on that company's hardware. The model, the GPU and the database all sit inside your network, and it works with no internet connection.</p></div>
+<div class="diag"><svg viewBox="0 0 880 290" role="img" aria-label="Questions and answers move between your team, a local AI on a GPU and your database, all inside your premises. A connection to the internet is blocked.">
+<rect class="bd" x="10" y="20" width="650" height="255" rx="14"/><text class="lb" x="30" y="52">YOUR PREMISES, AIR-GAPPED</text>
+<path class="ln" d="M170 150H260M430 150H520M170 176H260M430 176H520"/>
+<rect class="ring" x="252" y="82" width="186" height="136" rx="14"><animate attributeName="opacity" values=".1;.75;.1" dur="2.6s" repeatCount="indefinite"/></rect>
+<rect class="nd" x="40" y="100" width="130" height="100" rx="10"/><text class="tt" x="105" y="146" text-anchor="middle">Your team</text><text class="ts" x="105" y="168" text-anchor="middle">LAN clients</text>
+<rect class="nd" x="260" y="90" width="170" height="120" rx="10"/><text class="tt" x="345" y="146" text-anchor="middle">Local LLM</text><text class="ts" x="345" y="168" text-anchor="middle">on a GPU server</text>
+<rect class="nd" x="520" y="100" width="120" height="100" rx="10"/><text class="tt" x="580" y="146" text-anchor="middle">MySQL</text><text class="ts" x="580" y="168" text-anchor="middle">your database</text>
+<rect class="nd ext" x="730" y="100" width="130" height="100" rx="10"/><text class="tt" x="795" y="146" text-anchor="middle">Internet</text><text class="ts" x="795" y="168" text-anchor="middle">no route</text>
+<circle class="pf" r="4"><animateMotion dur="3s" begin="0s" repeatCount="indefinite" path="M170 150H260"/></circle>
+<circle class="pf" r="4"><animateMotion dur="3s" begin="-1s" repeatCount="indefinite" path="M430 150H520"/></circle>
+<circle class="pr" r="4"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M520 176H430"/></circle>
+<circle class="pr" r="4"><animateMotion dur="3s" begin="-2.5s" repeatCount="indefinite" path="M260 176H170"/></circle>
+<circle class="px" r="4"><animateMotion dur="2.6s" repeatCount="indefinite" path="M730 150H672" keyPoints="0;1;0" keyTimes="0;.5;1" calcMode="linear"/></circle>
+<circle class="rg" cx="662" cy="150" r="4"><animate attributeName="r" values="4;22" dur="2.6s" begin="1.3s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.6s" begin="1.3s" repeatCount="indefinite"/></circle>
+<path class="xm" d="M654 144l16 12M670 144l-16 12"/><text class="ts" x="795" y="232" text-anchor="middle">blocked at the boundary</text></svg></div>
+<div class="diagm" role="img" aria-label="Your team, a local AI on a GPU and your database sit inside your air-gapped premises. The internet is blocked at the boundary."><div class="dm-box"><em>YOUR PREMISES, AIR-GAPPED</em>
+<div class="dm-n"><b>Your team</b><span>LAN clients</span></div><i class="dm-w"></i><div class="dm-n"><b>Local LLM</b><span>on a GPU server</span></div><i class="dm-w"></i><div class="dm-n"><b>MySQL</b><span>your database</span></div></div>
+<div class="dm-x"><b>Internet</b><span>blocked at the boundary</span></div></div>
+<div class="tiles"><div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#server"/></svg></div><h3>On your servers</h3><p>Installed in your data centre, next to the data it reads.</p></div><div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#wifioff"/></svg></div><h3>Without internet</h3><p>We fit a GPU at your site and run it air-gapped.</p></div><div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#cloud"/></svg></div><h3>Or on the cloud</h3><p>If you prefer the cloud, we deploy in your own account.</p></div></div>
+</div></section>
+
+<section class="t-violet" id="how"><div class="wrap">
+<div class="sec-head"><h2>How it works.</h2></div>
+<div class="steps"><div class="step"><div class="top"><div class="tile"><svg class="i"><use href="/assets/icons.svg#chat"/></svg></div></div><h3>Ask</h3><p>Type a question the way you would say it.</p></div><div class="step"><div class="top"><div class="tile"><svg class="i"><use href="/assets/icons.svg#code"/></svg></div></div><h3>Translate</h3><p>Box GPT writes the MySQL query for your database.</p></div><div class="step"><div class="top"><div class="tile"><svg class="i"><use href="/assets/icons.svg#table"/></svg></div></div><h3>Answer</h3><p>You get a table you can filter or export.</p></div></div>
+</div></section>
+
+<section class="t-peach" id="industries"><div class="wrap">
+<div class="sec-head"><h2>Industries we serve.</h2><p>Open Banking or Manufacturing to see a working example.</p></div>
+<div class="ind"><a class="mcard" href="/banking"><div class="media"><span class="o1"></span><span class="o2"></span><svg class="i big"><use href="/assets/icons.svg#bank"/></svg><div class="bub"><b></b><b></b><b></b></div></div><div class="mbody"><h3>Banking and lending</h3><p>A private GPT with a dashboard for every role.</p><q>Borrowers with an EMI overdue by 30 days</q></div><div class="mact">See the banking solution</div></a><a class="mcard" href="/manufacturing"><div class="media"><span class="o1"></span><span class="o2"></span><svg class="i big"><use href="/assets/icons.svg#factory"/></svg><div class="bub"><b></b><b></b><b></b></div></div><div class="mbody"><h3>Manufacturing</h3><p>A co-pilot that answers operators from your machine manuals.</p><q>How do I replace the pump seal on Press-04?</q></div><div class="mact">See the manufacturing solution</div></a><a class="mcard" href="/#contact"><div class="media"><span class="o1"></span><span class="o2"></span><svg class="i big"><use href="/assets/icons.svg#umbrella"/></svg><div class="bub"><b></b><b></b><b></b></div></div><div class="mbody"><h3>Other industries</h3><p>Insurance, healthcare, retail, government and more.</p><q>Policies expiring next month with no claim</q></div><div class="mact">Discuss your use case</div></a></div>
+</div></section>
+
+<section class="t-sky"><div class="wrap">
+<div class="sec-head"><h2>We also automate the handoffs between your systems.</h2><p>Data often has to move from the CRM to the ERP, or from HR to finance, and someone types it in again. We automate that.</p></div>
+<div class="flows"><h3>Example workflows</h3>
+<div class="fl3"><div class="fl"><b>Sales to finance</b><small>CRM to ERP to accounting</small></div><ol class="chain"><li><b>CRM</b>Deal marked won</li><li><b>ERP</b>Customer and sales order created</li><li><b>Accounting</b>Invoice raised, finance notified</li></ol></div>
+<div class="fl3"><div class="fl"><b>HR to operations</b><small>HRMS to ERP to operations</small></div><ol class="chain"><li><b>HRMS</b>New joiner added</li><li><b>ERP</b>Employee record created</li><li><b>Operations</b>Access and equipment requested</li></ol></div>
+<div class="fl3"><div class="fl"><b>Invoice to payment</b><small>Email to AI agent to ERP</small></div><ol class="chain"><li><b>Email</b>Supplier invoice received</li><li><b>AI agent</b>Reads it, matches the purchase order</li><li><b>ERP</b>Approved, posted, payment scheduled</li></ol></div>
+</div></div></section>
+
+<section class="t-teal" id="about"><div class="wrap about-grid"><div>
+<div class="sec-head about-copy"><h2>About us.</h2><p>With a combined 40+ years of experience in the software industry, we are a team of <strong>serial entrepreneurs</strong> with deep expertise in building scalable systems.</p><p>After a successful exit following the acquisition of our previous start-up, we are now building Box GPT: your custom, on-premise GPT, trained on your data.</p><p>We build private AI and automation systems for companies. We start by asking what is slowing the business down, then build around the answer.</p></div>
+<p class="tagline">Process first. Technology second. Impact always.</p>
+</div><figure class="about-photo"><img src="/assets/img/team.jpg" alt="The three Box GPT founders standing together in black Box GPT t-shirts" width="1100" height="619" loading="lazy" decoding="async"></figure></div></section>
+
+<section class="cta" id="contact"><div class="wrap"><div><h2>Tell us what is slowing your business down.</h2>
+<p>Send us one question your team cannot get answered, or one process that still runs on spreadsheets. We will show you a working version.</p>
+<a class="btn" href="mailto:hello@example.com">Email us</a></div><div class="cta-visual" aria-hidden="true"><svg class="cv-cube" viewBox="0 0 320 320" fill="none"><circle cx="160" cy="160" r="150" stroke="rgba(255,255,255,.10)" stroke-width="1.5"/><circle cx="160" cy="160" r="112" stroke="rgba(255,255,255,.16)" stroke-width="1.5" stroke-dasharray="4 8"/><g class="cv-float"><polygon points="160,82 227.5,121 160,160 92.5,121" fill="rgba(125,240,221,.22)"/><polygon points="160,82 227.5,121 227.5,199 160,238 92.5,199 92.5,121" stroke="#7DF0DD" stroke-width="7" stroke-linejoin="round"/><path d="M92.5 121 160 160 227.5 121M160 160v78" stroke="#7DF0DD" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/></g></svg></div></div></section>
+</main>
+
+<footer><div class="wrap fgrid"><div><span class="fb"><span class="mk"></span>Box GPT</span><p>Private AI for your data and your workflows.</p></div>
+<div><h4>Company</h4><a href="/">Home</a><a href="/#how">How it works</a><a href="/#privacy">Privacy</a><a href="/login">Sign in</a><a href="/#about">About us</a><a href="/#contact">Contact</a></div>
+<div><h4>Industries</h4><a href="/#industries">All industries</a><a href="/banking">Banking</a><a href="/manufacturing">Manufacturing</a></div>
+<div><h4>Get in touch</h4><a href="mailto:hello@example.com">hello@example.com</a><a href="/#contact">Talk to us</a></div></div>
+<div class="wrap fbase"><span>Box GPT</span><span>Enterprise automation, AI agents and intelligent software</span></div></footer>
+</body>
+</html>

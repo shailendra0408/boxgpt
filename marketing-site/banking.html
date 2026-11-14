@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Banking and lending | Box GPT</title>
+<meta name="description" content="Your bank's own GPT. Staff ask questions in plain English and get answers from the bank's database, with access controlled by role.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="/css/styles.css?v=1">
+<script src="/js/main.js?v=1" defer></script>
+<script src="/js/banking.js?v=1" defer></script>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="/" aria-label="Box GPT home"><span class="mk"></span>Box GPT</a>
+  <div class="links">
+    <a class="hm" href="/">Home</a><a class="hm" href="/#how">How it works</a><a class="hm" href="/#privacy">Privacy</a><div class="dd"><button class="on" id="ddb" aria-expanded="false" aria-haspopup="true">Industries we serve</button><div class="menu" id="ddm"><a href="/#industries">All industries</a><a class="on" href="/banking" aria-current="page">Banking</a><a href="/manufacturing">Manufacturing</a></div></div><a class="hm" href="/#about">About us</a>
+  </div>
+  <a class="btn ghost hm" href="/login">Sign in</a><a class="btn" href="/#contact">Talk to us</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
+<div class="mnav" id="mnav" hidden><a href="/">Home</a><a href="/#how">How it works</a><a href="/#privacy">Privacy</a><a href="/#industries">Industries we serve</a><a class="sub on" href="/banking" aria-current="page">Banking</a><a class="sub" href="/manufacturing">Manufacturing</a><a href="/#about">About us</a><a href="/login">Sign in</a><a href="/#contact">Contact</a></div></div></nav>
+
+<main id="main" class="pg">
+<div class="wrap phead"><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/#industries">Industries we serve</a><span>/</span><span>Banking and lending</span></nav><h1>Your bank's own GPT.</h1><p class="lead">Staff ask questions in plain English and get answers from the bank's own database. What each person sees depends on their role.</p>
+<div class="actions"><a class="btn" href="/#contact">Book a demo</a><a class="btn ghost" href="#b-dash">See the dashboards</a></div></div>
+<section class="t-violet" id="b-dash"><div class="wrap"><div class="sec-head"><h2>A dashboard for every role.</h2><p>Each person sees only what their role allows. Pick a role to compare.</p></div>
+<div class="rtabs" id="rtabs"></div><div id="dash"></div><p class="note">Sample data for illustration.</p></div></section>
+<section class="t-teal" id="b-sec"><div class="wrap"><div class="sec-head"><h2>Security.</h2><p>Built in from the start, not added later.</p></div><div class="sec6"><div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#lock"/></svg></div><h3>Your own GPT</h3><p>Deployed for your bank alone, never shared with other customers.</p></div><div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#users"/></svg></div><h3>Access by role</h3><p>Permissions are checked before a query runs, so staff only get data their role allows.</p></div><div class="card"><div class="tile"><svg class="i"><use href="/assets/icons.svg#table"/></svg></div><h3>Audit trail</h3><p>Every question and query is logged for review.</p></div></div></div></section>
+<section class="t-violet slim"><div class="wrap seeb"><div><h3>Also see: Manufacturing</h3><p>A co-pilot that answers operators from your machine manuals.</p></div><a class="btn" href="/manufacturing">See the manufacturing solution</a></div></section>
+<section class="cta"><div class="wrap"><div><h2>Want to see it on your own data?</h2><p>Share what your team needs to ask. We will show you a working version on your own data.</p><a class="btn" href="/#contact">Talk to us</a></div></div></section>
+</main>
+
+<footer><div class="wrap fgrid"><div><span class="fb"><span class="mk"></span>Box GPT</span><p>Private AI for your data and your workflows.</p></div>
+<div><h4>Company</h4><a href="/">Home</a><a href="/#how">How it works</a><a href="/#privacy">Privacy</a><a href="/login">Sign in</a><a href="/#about">About us</a><a href="/#contact">Contact</a></div>
+<div><h4>Industries</h4><a href="/#industries">All industries</a><a href="/banking">Banking</a><a href="/manufacturing">Manufacturing</a></div>
+<div><h4>Get in touch</h4><a href="mailto:hello@example.com">hello@example.com</a><a href="/#contact">Talk to us</a></div></div>
+<div class="wrap fbase"><span>Box GPT</span><span>Enterprise automation, AI agents and intelligent software</span></div></footer>
+</body>
+</html>

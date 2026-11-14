@@ -54,7 +54,14 @@ async def lifespan(app: FastAPI):
         await app.state.openai.close()
 
 
-app = FastAPI(title="BOXGPT Demo API", version="0.1.0", lifespan=lifespan)
+app = FastAPI(
+    title="BOXGPT Demo API",
+    version="0.1.0",
+    lifespan=lifespan,
+    docs_url=None,
+    redoc_url=None,
+    openapi_url=None,
+)
 app.mount("/static", StaticFiles(directory=FRONTEND_DIR / "static"), name="static")
 
 
